@@ -5,7 +5,7 @@ using System.Text;
 namespace Calendar
 {
     [Serializable]
-    class PlanData
+    public class PlanData
     {
         private List<PlanItem> job;
 

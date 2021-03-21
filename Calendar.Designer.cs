@@ -257,6 +257,7 @@ namespace Calendar
             this.Controls.Add(this.panel1);
             this.Name = "Calendar";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Calendar_FormClosing);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);

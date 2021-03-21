@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace Calendar
 {
@@ -16,15 +18,40 @@ namespace Calendar
         private List<List<Button>> matrix;
 
         public List<List<Button>> Matrix { get => matrix; set => matrix = value; }
-        internal PlanData Job { get => job; set => job = value; }
+        internal PlanData Jobs { get => jobs; set => jobs = value; }
 
         private List<String> dateOfWeek = new List<string>{ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
-        private PlanData job;
+        private PlanData jobs;
+        private string filePath = "data.xml";
         #endregion
         public Calendar()
         {
             InitializeComponent();
             LoadMatrix();
+            try
+            {
+                DeserializeFromXML(filePath);
+            }
+            catch (Exception)
+            {
+                
+                SetDefaultJob();
+            }
+            
+        }
+
+        void SetDefaultJob()
+        {
+            Jobs = new PlanData();
+            Jobs.Job = new List<PlanItem>();
+            Jobs.Job.Add(new PlanItem() 
+            {
+                CurrentDay=DateTime.Now,
+                FromTime=new Point(4,0),
+                ToTime=new Point(5,0),
+                Job="Test",
+                Status=PlanItem.listStatus[(int)EPlanItem.Coming]
+            });
         }
         void LoadMatrix()
         {
@@ -136,6 +163,36 @@ namespace Calendar
             SetDefaultDate();
         }
 
+        private void SerializeToXML(object data, string filePath)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
+            XmlSerializer sr = new XmlSerializer(typeof(PlanData));
+            sr.Serialize(fs,data);
+            fs.Close();
+        }
         
+        private object DeserializeFromXML(string filePath)
+        {
+            FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            try
+            {
+                
+                XmlSerializer sr = new XmlSerializer(typeof(PlanData));
+                object result = sr.Deserialize(fs);
+                fs.Close();
+                return result;
+            }
+            catch(Exception e)
+            {
+                fs.Close();
+                throw new NotImplementedException();
+                
+            }
+        }
+
+        private void Calendar_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SerializeToXML(Jobs, filePath);
+        }
     }
 }
