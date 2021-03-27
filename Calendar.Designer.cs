@@ -29,6 +29,8 @@ namespace Calendar
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Calendar));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -48,6 +50,8 @@ namespace Calendar
             this.btnMonday = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnlMatrix = new System.Windows.Forms.Panel();
+            this.tmNotify = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -63,7 +67,7 @@ namespace Calendar
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(829, 699);
+            this.panel1.Size = new System.Drawing.Size(835, 699);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -73,7 +77,7 @@ namespace Calendar
             this.panel3.Controls.Add(this.dtpkDate);
             this.panel3.Location = new System.Drawing.Point(17, 13);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(798, 45);
+            this.panel3.Size = new System.Drawing.Size(854, 45);
             this.panel3.TabIndex = 1;
             // 
             // panel6
@@ -87,6 +91,7 @@ namespace Calendar
             // 
             // nmNotify
             // 
+            this.nmNotify.Enabled = false;
             this.nmNotify.Location = new System.Drawing.Point(74, 10);
             this.nmNotify.Maximum = new decimal(new int[] {
             3600,
@@ -106,6 +111,7 @@ namespace Calendar
             0,
             0,
             0});
+            this.nmNotify.ValueChanged += new System.EventHandler(this.nmNotify_ValueChanged);
             // 
             // ckbNotify
             // 
@@ -116,6 +122,7 @@ namespace Calendar
             this.ckbNotify.TabIndex = 0;
             this.ckbNotify.Text = "Notify";
             this.ckbNotify.UseVisualStyleBackColor = true;
+            this.ckbNotify.CheckedChanged += new System.EventHandler(this.ckbNotify_CheckedChanged);
             // 
             // btnToday
             // 
@@ -148,12 +155,12 @@ namespace Calendar
             this.panel4.Controls.Add(this.btnMonday);
             this.panel4.Location = new System.Drawing.Point(17, 117);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(798, 71);
+            this.panel4.Size = new System.Drawing.Size(815, 71);
             this.panel4.TabIndex = 0;
             // 
             // btnFriday
             // 
-            this.btnFriday.Location = new System.Drawing.Point(442, 23);
+            this.btnFriday.Location = new System.Drawing.Point(449, 23);
             this.btnFriday.Name = "btnFriday";
             this.btnFriday.Size = new System.Drawing.Size(75, 23);
             this.btnFriday.TabIndex = 0;
@@ -162,7 +169,7 @@ namespace Calendar
             // 
             // btnTuesday
             // 
-            this.btnTuesday.Location = new System.Drawing.Point(195, 23);
+            this.btnTuesday.Location = new System.Drawing.Point(174, 23);
             this.btnTuesday.Name = "btnTuesday";
             this.btnTuesday.Size = new System.Drawing.Size(75, 23);
             this.btnTuesday.TabIndex = 0;
@@ -171,7 +178,7 @@ namespace Calendar
             // 
             // btnNextMonth
             // 
-            this.btnNextMonth.Location = new System.Drawing.Point(685, 23);
+            this.btnNextMonth.Location = new System.Drawing.Point(723, 23);
             this.btnNextMonth.Name = "btnNextMonth";
             this.btnNextMonth.Size = new System.Drawing.Size(75, 23);
             this.btnNextMonth.TabIndex = 0;
@@ -181,7 +188,7 @@ namespace Calendar
             // 
             // btnSunday
             // 
-            this.btnSunday.Location = new System.Drawing.Point(604, 23);
+            this.btnSunday.Location = new System.Drawing.Point(633, 23);
             this.btnSunday.Name = "btnSunday";
             this.btnSunday.Size = new System.Drawing.Size(75, 23);
             this.btnSunday.TabIndex = 0;
@@ -199,7 +206,7 @@ namespace Calendar
             // 
             // btnSaturday
             // 
-            this.btnSaturday.Location = new System.Drawing.Point(523, 23);
+            this.btnSaturday.Location = new System.Drawing.Point(541, 23);
             this.btnSaturday.Name = "btnSaturday";
             this.btnSaturday.Size = new System.Drawing.Size(75, 23);
             this.btnSaturday.TabIndex = 0;
@@ -208,16 +215,16 @@ namespace Calendar
             // 
             // btnWednesday
             // 
-            this.btnWednesday.Location = new System.Drawing.Point(276, 23);
+            this.btnWednesday.Location = new System.Drawing.Point(264, 23);
             this.btnWednesday.Name = "btnWednesday";
-            this.btnWednesday.Size = new System.Drawing.Size(75, 23);
+            this.btnWednesday.Size = new System.Drawing.Size(81, 23);
             this.btnWednesday.TabIndex = 0;
             this.btnWednesday.Text = "Wednesday";
             this.btnWednesday.UseVisualStyleBackColor = true;
             // 
             // btnPrevMonth
             // 
-            this.btnPrevMonth.Location = new System.Drawing.Point(33, 23);
+            this.btnPrevMonth.Location = new System.Drawing.Point(1, 23);
             this.btnPrevMonth.Name = "btnPrevMonth";
             this.btnPrevMonth.Size = new System.Drawing.Size(75, 23);
             this.btnPrevMonth.TabIndex = 0;
@@ -227,7 +234,7 @@ namespace Calendar
             // 
             // btnMonday
             // 
-            this.btnMonday.Location = new System.Drawing.Point(114, 23);
+            this.btnMonday.Location = new System.Drawing.Point(84, 23);
             this.btnMonday.Name = "btnMonday";
             this.btnMonday.Size = new System.Drawing.Size(75, 23);
             this.btnMonday.TabIndex = 0;
@@ -239,23 +246,36 @@ namespace Calendar
             this.panel2.Controls.Add(this.pnlMatrix);
             this.panel2.Location = new System.Drawing.Point(17, 64);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(798, 635);
+            this.panel2.Size = new System.Drawing.Size(815, 635);
             this.panel2.TabIndex = 0;
             // 
             // pnlMatrix
             // 
-            this.pnlMatrix.Location = new System.Drawing.Point(76, 130);
+            this.pnlMatrix.Location = new System.Drawing.Point(78, 130);
             this.pnlMatrix.Name = "pnlMatrix";
-            this.pnlMatrix.Size = new System.Drawing.Size(663, 505);
+            this.pnlMatrix.Size = new System.Drawing.Size(653, 505);
             this.pnlMatrix.TabIndex = 1;
+            // 
+            // tmNotify
+            // 
+            this.tmNotify.Enabled = true;
+            this.tmNotify.Interval = 60000;
+            this.tmNotify.Tick += new System.EventHandler(this.tmNotify_Tick);
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Calendar";
+            this.notifyIcon.Visible = true;
             // 
             // Calendar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(853, 735);
+            this.ClientSize = new System.Drawing.Size(848, 735);
             this.Controls.Add(this.panel1);
             this.Name = "Calendar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Calendar_FormClosing);
             this.panel1.ResumeLayout(false);
@@ -290,6 +310,8 @@ namespace Calendar
         private System.Windows.Forms.Button btnMonday;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel pnlMatrix;
+        private System.Windows.Forms.Timer tmNotify;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
     }
 }
 

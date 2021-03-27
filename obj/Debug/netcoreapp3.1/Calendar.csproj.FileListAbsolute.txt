@@ -15,3 +15,20 @@ D:\C#\Calendar\obj\Debug\netcoreapp3.1\Calendar.csproj.CoreCompileInputs.cache
 D:\C#\Calendar\obj\Debug\netcoreapp3.1\Calendar.dll
 D:\C#\Calendar\obj\Debug\netcoreapp3.1\Calendar.pdb
 D:\C#\Calendar\obj\Debug\netcoreapp3.1\Calendar.genruntimeconfig.cache
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.exe
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.deps.json
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.runtimeconfig.json
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.runtimeconfig.dev.json
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.dll
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\bin\Debug\netcoreapp3.1\Calendar.pdb
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.csprojAssemblyReference.cache
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.AJob.resources
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.Calendar.resources
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.DailyPlan.resources
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.csproj.GenerateResource.cache
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.AssemblyInfoInputs.cache
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.AssemblyInfo.cs
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.csproj.CoreCompileInputs.cache
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.dll
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.pdb
+C:\Users\LONGH3\OneDrive - FPT Software\Desktop\Calendar\obj\Debug\netcoreapp3.1\Calendar.genruntimeconfig.cache

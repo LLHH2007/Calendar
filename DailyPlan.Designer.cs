@@ -30,14 +30,14 @@ namespace Calendar
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.dtpkDate = new System.Windows.Forms.DateTimePicker();
             this.pnlJob = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnPrevDay = new System.Windows.Forms.Button();
+            this.btnNextDay = new System.Windows.Forms.Button();
+            this.dtpkDate = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mnsAddwork = new System.Windows.Forms.ToolStripMenuItem();
             this.mnsToday = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnNextDay = new System.Windows.Forms.Button();
-            this.btnPrevDay = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -50,8 +50,16 @@ namespace Calendar
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(776, 641);
+            this.panel1.Size = new System.Drawing.Size(1411, 641);
             this.panel1.TabIndex = 0;
+            // 
+            // pnlJob
+            // 
+            this.pnlJob.AutoScroll = true;
+            this.pnlJob.Location = new System.Drawing.Point(10, 98);
+            this.pnlJob.Name = "pnlJob";
+            this.pnlJob.Size = new System.Drawing.Size(1401, 531);
+            this.pnlJob.TabIndex = 3;
             // 
             // panel2
             // 
@@ -60,22 +68,36 @@ namespace Calendar
             this.panel2.Controls.Add(this.dtpkDate);
             this.panel2.Location = new System.Drawing.Point(10, 41);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(751, 51);
+            this.panel2.Size = new System.Drawing.Size(1401, 51);
             this.panel2.TabIndex = 0;
+            // 
+            // btnPrevDay
+            // 
+            this.btnPrevDay.Location = new System.Drawing.Point(65, 14);
+            this.btnPrevDay.Name = "btnPrevDay";
+            this.btnPrevDay.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevDay.TabIndex = 1;
+            this.btnPrevDay.Text = "PrevDay";
+            this.btnPrevDay.UseVisualStyleBackColor = true;
+            this.btnPrevDay.Click += new System.EventHandler(this.btnPrevDay_Click);
+            // 
+            // btnNextDay
+            // 
+            this.btnNextDay.Location = new System.Drawing.Point(1265, 16);
+            this.btnNextDay.Name = "btnNextDay";
+            this.btnNextDay.Size = new System.Drawing.Size(75, 23);
+            this.btnNextDay.TabIndex = 1;
+            this.btnNextDay.Text = "Next Day";
+            this.btnNextDay.UseVisualStyleBackColor = true;
+            this.btnNextDay.Click += new System.EventHandler(this.btnNextDay_Click);
             // 
             // dtpkDate
             // 
-            this.dtpkDate.Location = new System.Drawing.Point(260, 12);
+            this.dtpkDate.Location = new System.Drawing.Point(618, 16);
             this.dtpkDate.Name = "dtpkDate";
             this.dtpkDate.Size = new System.Drawing.Size(200, 23);
             this.dtpkDate.TabIndex = 0;
-            // 
-            // pnlJob
-            // 
-            this.pnlJob.Location = new System.Drawing.Point(10, 112);
-            this.pnlJob.Name = "pnlJob";
-            this.pnlJob.Size = new System.Drawing.Size(751, 516);
-            this.pnlJob.TabIndex = 1;
+            this.dtpkDate.ValueChanged += new System.EventHandler(this.dtpkDate_ValueChanged);
             // 
             // menuStrip1
             // 
@@ -84,7 +106,7 @@ namespace Calendar
             this.mnsToday});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(776, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1411, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -97,34 +119,17 @@ namespace Calendar
             // mnsToday
             // 
             this.mnsToday.Name = "mnsToday";
-            this.mnsToday.Size = new System.Drawing.Size(50, 20);
+            this.mnsToday.Size = new System.Drawing.Size(51, 20);
             this.mnsToday.Text = "Today";
-            // 
-            // btnNextDay
-            // 
-            this.btnNextDay.Location = new System.Drawing.Point(563, 12);
-            this.btnNextDay.Name = "btnNextDay";
-            this.btnNextDay.Size = new System.Drawing.Size(75, 23);
-            this.btnNextDay.TabIndex = 1;
-            this.btnNextDay.Text = "Next Day";
-            this.btnNextDay.UseVisualStyleBackColor = true;
-            // 
-            // btnPrevDay
-            // 
-            this.btnPrevDay.Location = new System.Drawing.Point(70, 12);
-            this.btnPrevDay.Name = "btnPrevDay";
-            this.btnPrevDay.Size = new System.Drawing.Size(75, 23);
-            this.btnPrevDay.TabIndex = 1;
-            this.btnPrevDay.Text = "PrevDay";
-            this.btnPrevDay.UseVisualStyleBackColor = true;
             // 
             // DailyPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 665);
+            this.ClientSize = new System.Drawing.Size(1435, 665);
             this.Controls.Add(this.panel1);
             this.Name = "DailyPlan";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DailyPlan";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -138,7 +143,6 @@ namespace Calendar
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel pnlJob;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnPrevDay;
         private System.Windows.Forms.Button btnNextDay;
@@ -146,5 +150,6 @@ namespace Calendar
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mnsAddwork;
         private System.Windows.Forms.ToolStripMenuItem mnsToday;
+        private System.Windows.Forms.Panel pnlJob;
     }
 }

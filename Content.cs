@@ -11,5 +11,6 @@ namespace Calendar
         public static int dateButtonWidth = 86;
         public static int dateButtonHeight = 50;
         public static int margin = 6;
+        public static int notifyTime = 1;
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Calendar
 {
-    class PlanItem
+    public class PlanItem
     {
         private DateTime currentDay;
         private string job;

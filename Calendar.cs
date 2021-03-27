@@ -27,14 +27,14 @@ namespace Calendar
         public Calendar()
         {
             InitializeComponent();
+            tmNotify.Start();
             LoadMatrix();
             try
             {
-                DeserializeFromXML(filePath);
+                Jobs = DeserializeFromXML(filePath)as PlanData;
             }
-            catch (Exception)
+            catch
             {
-                
                 SetDefaultJob();
             }
             
@@ -52,6 +52,14 @@ namespace Calendar
                 Job="Test",
                 Status=PlanItem.listStatus[(int)EPlanItem.Coming]
             });
+            Jobs.Job.Add(new PlanItem()
+            {
+                CurrentDay = DateTime.Now,
+                FromTime = new Point(5, 0),
+                ToTime = new Point(6, 0),
+                Job = "Test",
+                Status = PlanItem.listStatus[(int)EPlanItem.Coming]
+            });
         }
         void LoadMatrix()
         {
@@ -64,6 +72,7 @@ namespace Calendar
                 {
                     Button btn = new Button() { Width = Content.dateButtonWidth, Height = Content.dateButtonHeight };
                     btn.Location = new Point(oldBtn.Location.X + oldBtn.Width + Content.margin, oldBtn.Location.Y);
+                    btn.Click += Btn_Click;
                     pnlMatrix.Controls.Add(btn);
                     matrix[i].Add(btn);
                     oldBtn = btn;
@@ -71,6 +80,14 @@ namespace Calendar
                 oldBtn = new Button() { Width = 0, Height = 0, Location = new Point(-Content.margin, oldBtn.Location.Y + Content.dateButtonHeight) };
             }
             SetDefaultDate();
+        }
+
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty((sender as Button).Text))
+                return;
+            DailyPlan daily = new DailyPlan(new DateTime(dtpkDate.Value.Year,dtpkDate.Value.Month,Convert.ToInt32((sender as Button).Text)),Jobs);
+            daily.ShowDialog();
         }
 
         int DayOfMonth(DateTime date)
@@ -138,7 +155,7 @@ namespace Calendar
                 for(int j = 0; j < Matrix[i].Count; j++)
                 {
                     Matrix[i][j].Text = "";
-                    btnFriday.BackColor = Color.WhiteSmoke;
+                    (Matrix[i][j] as Button).BackColor = Color.WhiteSmoke;
                 }
             }
         }
@@ -167,10 +184,18 @@ namespace Calendar
         {
             FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write);
             XmlSerializer sr = new XmlSerializer(typeof(PlanData));
-            sr.Serialize(fs,data);
+            sr.Serialize(fs, data);
             fs.Close();
+            //System.Xml.Serialization.XmlSerializer writer =
+            //new System.Xml.Serialization.XmlSerializer(typeof(PlanData));
+
+            //var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "//SerializationOverview.xml";
+            //System.IO.FileStream file = System.IO.File.Create(path);
+
+            //writer.Serialize(file, data);
+            //file.Close();
         }
-        
+
         private object DeserializeFromXML(string filePath)
         {
             FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
@@ -193,6 +218,28 @@ namespace Calendar
         private void Calendar_FormClosing(object sender, FormClosingEventArgs e)
         {
             SerializeToXML(Jobs, filePath);
+        }
+
+        private void tmNotify_Tick(object sender, EventArgs e)
+        {
+            if (!ckbNotify.Checked)
+                return;
+            if (jobs == null||jobs.Job == null)
+                    return;
+            DateTime currentDay = DateTime.Now;
+            List<PlanItem> todayWork = Jobs.Job.Where(p =>p.CurrentDay.Year==currentDay.Year&&p.CurrentDay.Month==currentDay.Month&&p.CurrentDay.Day==currentDay.Day).ToList();
+            notifyIcon.ShowBalloonTip(Content.notifyTime,"My work",string.Format("You have {0} work(s) today",todayWork.Count),ToolTipIcon.Info);
+        }
+
+        private void nmNotify_ValueChanged(object sender, EventArgs e)
+        {
+            Content.notifyTime = (int)nmNotify.Value;
+            tmNotify.Interval = Content.notifyTime * 60000;
+        }
+
+        private void ckbNotify_CheckedChanged(object sender, EventArgs e)
+        {
+            nmNotify.Enabled = ckbNotify.Checked;
         }
     }
 }
